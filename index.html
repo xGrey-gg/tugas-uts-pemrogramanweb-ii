@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendaftaran Mahasiswa Baru</title>
 
     <style>
         body {
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             background: #f2f2f2;
             margin: 20px;
         }
@@ -17,6 +19,10 @@
             background: white;
             padding: 20px;
             border-radius: 10px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
         }
 
         table {
@@ -33,14 +39,8 @@
 
         th,
         td {
-            padding: 8px;
+            padding: 10px;
             text-align: center;
-        }
-
-        input,
-        textarea {
-            padding: 5px;
-            margin: 3px;
         }
 
         .form-table td {
@@ -48,12 +48,25 @@
             text-align: left;
         }
 
+        input,
+        textarea {
+            padding: 8px;
+            width: 90%;
+        }
+
         button {
             padding: 10px 20px;
-            background: blue;
-            color: white;
             border: none;
             cursor: pointer;
+            color: white;
+        }
+
+        .btn-simpan {
+            background: blue;
+        }
+
+        .btn-reset {
+            background: red;
         }
     </style>
 </head>
@@ -64,29 +77,29 @@
 
         <h2>INPUT PENDAFTARAN</h2>
 
-        <form method="POST">
+        <form id="formPendaftaran">
 
             <table class="form-table">
 
                 <tr>
                     <td>JUMLAH INPUT DATA</td>
-                    <td><input type="number" name="jumlah"></td>
+                    <td><input type="number" id="jumlah" required></td>
                 </tr>
 
                 <tr>
                     <td>KODE PENDAFTARAN</td>
-                    <td><input type="text" name="kode" required></td>
+                    <td><input type="text" id="kode" required></td>
                 </tr>
 
                 <tr>
                     <td>NAMA PENDAFTAR</td>
-                    <td><input type="text" name="nama" required></td>
+                    <td><input type="text" id="nama" required></td>
                 </tr>
 
                 <tr>
                     <td>JENIS KELAMIN</td>
                     <td>
-                        <input type="radio" name="jk" value="Laki-laki"> Laki-laki
+                        <input type="radio" name="jk" value="Laki-laki" required> Laki-laki
                         <input type="radio" name="jk" value="Perempuan"> Perempuan
                     </td>
                 </tr>
@@ -94,48 +107,41 @@
                 <tr>
                     <td>TTL</td>
                     <td>
-                        <input type="text" name="tempat" placeholder="Tempat Lahir">
-                        <input type="date" name="tanggal">
+                        <input type="text" id="tempat" placeholder="Tempat Lahir" required>
+                        <input type="date" id="tanggal" required>
                     </td>
                 </tr>
 
                 <tr>
                     <td>ASAL SEKOLAH</td>
-                    <td><input type="text" name="sekolah"></td>
+                    <td><input type="text" id="sekolah"></td>
                 </tr>
 
                 <tr>
                     <td>PEKERJAAN ORTU</td>
-                    <td>
-                        <textarea name="ortu"></textarea>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>NILAI TES</td>
-                    <td></td>
+                    <td><textarea id="ortu"></textarea></td>
                 </tr>
 
                 <tr>
                     <td>MATEMATIKA</td>
-                    <td><input type="number" name="mat"></td>
+                    <td><input type="number" id="mat" required></td>
                 </tr>
 
                 <tr>
                     <td>BHS. INGGRIS</td>
-                    <td><input type="number" name="inggris"></td>
+                    <td><input type="number" id="inggris" required></td>
                 </tr>
 
                 <tr>
                     <td>P. UMUM</td>
-                    <td><input type="number" name="umum"></td>
+                    <td><input type="number" id="umum" required></td>
                 </tr>
 
                 <tr>
                     <td></td>
                     <td>
-                        <button type="submit" name="simpan">SIMPAN</button>
-                        <button type="reset">RESET</button>
+                        <button type="submit" class="btn-simpan">SIMPAN</button>
+                        <button type="reset" class="btn-reset">RESET</button>
                     </td>
                 </tr>
 
@@ -143,68 +149,14 @@
 
         </form>
 
+        <h2>TABEL DATA</h2>
 
-        if (isset($_POST['simpan'])) {
+        <table id="tabelData">
 
-            $jumlah = $_POST['jumlah'];
-            $kode = $_POST['kode'];
-            $nama = $_POST['nama'];
-            $jk = $_POST['jk'];
-            $tempat = $_POST['tempat'];
-            $tanggal = $_POST['tanggal'];
-            $sekolah = $_POST['sekolah'];
-            $ortu = $_POST['ortu'];
-
-            $mat = $_POST['mat'];
-            $inggris = $_POST['inggris'];
-            $umum = $_POST['umum'];
-
-            // HITUNG RATA-RATA
-            $rata = ($mat + $inggris + $umum) / 3;
-
-            // KETERANGAN
-            if ($rata >= 70) {
-                $keterangan = "LULUS";
-            } elseif ($rata >= 60) {
-                $keterangan = "CADANGAN";
-            } else {
-                $keterangan = "TIDAK LULUS";
-            }
-
-            // MENENTUKAN TEMPAT TES
-            $awal = strtoupper(substr($kode, 0, 1));
-
-            if ($awal == "A") {
-                $tempatTes = "Gedung A";
-            } elseif ($awal == "B") {
-                $tempatTes = "Gedung B";
-            } elseif ($awal == "V") {
-                $tempatTes = "Viktor";
-            } else {
-                $tempatTes = "Tidak Diketahui";
-            }
-
-            // AMBIL BULAN TES
-            $bulanTes = substr($kode, -1);
-
-            // HITUNG JUMLAH LULUS
-            $jumlahLulus = 0;
-            $jumlahTidak = 0;
-
-            if ($keterangan == "LULUS") {
-                $jumlahLulus = 1;
-            } else {
-                $jumlahTidak = 1;
-            }
-
-
-            <h2>TABEL DATA</h2>
-
-            <table>
-
+            <thead>
                 <tr>
-                    <th>Kode Pendaftar</th>
-                    <th>Nama Pendaftar</th>
+                    <th>Kode</th>
+                    <th>Nama</th>
                     <th>Tempat Lahir</th>
                     <th>JK</th>
                     <th>Tgl Lahir</th>
@@ -212,55 +164,89 @@
                     <th>Tempat Tes</th>
                     <th>Bln Tes</th>
                     <th>MAT</th>
-                    <th>INGG</th>
+                    <th>ING</th>
                     <th>UMUM</th>
-                    <th>R.RATA</th>
-                    <th>KETERANGAN</th>
+                    <th>Rata-rata</th>
+                    <th>Keterangan</th>
                 </tr>
+            </thead>
 
-                <tr>
+            <tbody id="hasilData"></tbody>
 
-                    <td> echo $kode; </td>
-                    <td> echo $nama; </td>
-                    <td> echo $tempat; </td>
-                    <td> echo $jk; </td>
-                    <td> echo $tanggal; </td>
-                    <td> echo $ortu; </td>
-                    <td> echo $tempatTes; </td>
-                    <td> echo $bulanTes; </td>
-                    <td> echo $mat; </td>
-                    <td> echo $inggris; </td>
-                    <td> echo $umum; </td>
-                    <td> echo number_format($rata, 2); </td>
-                    <td> echo $keterangan; </td>
-
-                </tr>
-
-                <tr>
-                    <td colspan="13">
-                        JUMLAH PENDAFTAR : echo $jumlah; 
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="13">
-                        JUMLAH PESERTA LULUS : echo $jumlahLulus; 
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="13">
-                        JUMLAH TIDAK PESERTA LULUS : echo $jumlahTidak; 
-                    </td>
-                </tr>
-
-            </table>
-
-            <?php
-        }
-        ?>
+        </table>
 
     </div>
+
+    <script>
+
+        document.getElementById("formPendaftaran").addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            let jumlah = document.getElementById("jumlah").value;
+            let kode = document.getElementById("kode").value;
+            let nama = document.getElementById("nama").value;
+            let tempat = document.getElementById("tempat").value;
+            let tanggal = document.getElementById("tanggal").value;
+            let ortu = document.getElementById("ortu").value;
+
+            let mat = parseFloat(document.getElementById("mat").value);
+            let inggris = parseFloat(document.getElementById("inggris").value);
+            let umum = parseFloat(document.getElementById("umum").value);
+
+            let jk = document.querySelector('input[name="jk"]:checked').value;
+
+            let rata = (mat + inggris + umum) / 3;
+
+            let keterangan = "";
+
+            if (rata >= 70) {
+                keterangan = "LULUS";
+            } else if (rata >= 60) {
+                keterangan = "CADANGAN";
+            } else {
+                keterangan = "TIDAK LULUS";
+            }
+
+            let awal = kode.charAt(0).toUpperCase();
+
+            let tempatTes = "";
+
+            if (awal === "A") {
+                tempatTes = "Gedung A";
+            } else if (awal === "B") {
+                tempatTes = "Gedung B";
+            } else if (awal === "V") {
+                tempatTes = "Viktor";
+            } else {
+                tempatTes = "Tidak Diketahui";
+            }
+
+            let bulanTes = kode.slice(-1);
+
+            let row = `
+                <tr>
+                    <td>${kode}</td>
+                    <td>${nama}</td>
+                    <td>${tempat}</td>
+                    <td>${jk}</td>
+                    <td>${tanggal}</td>
+                    <td>${ortu}</td>
+                    <td>${tempatTes}</td>
+                    <td>${bulanTes}</td>
+                    <td>${mat}</td>
+                    <td>${inggris}</td>
+                    <td>${umum}</td>
+                    <td>${rata.toFixed(2)}</td>
+                    <td>${keterangan}</td>
+                </tr>
+            `;
+
+            document.getElementById("hasilData").innerHTML = row;
+
+        });
+
+    </script>
 
 </body>
 
