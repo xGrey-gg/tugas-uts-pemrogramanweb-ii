@@ -143,7 +143,6 @@
 
         </form>
 
-        <?php
 
         if (isset($_POST['simpan'])) {
 
@@ -198,7 +197,6 @@
                 $jumlahTidak = 1;
             }
 
-            ?>
 
             <h2>TABEL DATA</h2>
 
@@ -222,37 +220,37 @@
 
                 <tr>
 
-                    <td><?php echo $kode; ?></td>
-                    <td><?php echo $nama; ?></td>
-                    <td><?php echo $tempat; ?></td>
-                    <td><?php echo $jk; ?></td>
-                    <td><?php echo $tanggal; ?></td>
-                    <td><?php echo $ortu; ?></td>
-                    <td><?php echo $tempatTes; ?></td>
-                    <td><?php echo $bulanTes; ?></td>
-                    <td><?php echo $mat; ?></td>
-                    <td><?php echo $inggris; ?></td>
-                    <td><?php echo $umum; ?></td>
-                    <td><?php echo number_format($rata, 2); ?></td>
-                    <td><?php echo $keterangan; ?></td>
+                    <td> echo $kode; </td>
+                    <td> echo $nama; </td>
+                    <td> echo $tempat; </td>
+                    <td> echo $jk; </td>
+                    <td> echo $tanggal; </td>
+                    <td> echo $ortu; </td>
+                    <td> echo $tempatTes; </td>
+                    <td> echo $bulanTes; </td>
+                    <td> echo $mat; </td>
+                    <td> echo $inggris; </td>
+                    <td> echo $umum; </td>
+                    <td> echo number_format($rata, 2); </td>
+                    <td> echo $keterangan; </td>
 
                 </tr>
 
                 <tr>
                     <td colspan="13">
-                        JUMLAH PENDAFTAR : <?php echo $jumlah; ?>
+                        JUMLAH PENDAFTAR : echo $jumlah; 
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="13">
-                        JUMLAH PESERTA LULUS : <?php echo $jumlahLulus; ?>
+                        JUMLAH PESERTA LULUS : echo $jumlahLulus; 
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="13">
-                        JUMLAH TIDAK PESERTA LULUS : <?php echo $jumlahTidak; ?>
+                        JUMLAH TIDAK PESERTA LULUS : echo $jumlahTidak; 
                     </td>
                 </tr>
 
